@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">男人装</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_welcome">Welcome</string>
+    <string name="title_activity_woman">Woman</string>
+	
+    <string name="title_rank">排行榜</string>
+    <string name="title_choice">评选</string>
+    <string name="title_signup">报名</string>
+</resources>
