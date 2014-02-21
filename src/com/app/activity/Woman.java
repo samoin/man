@@ -1,9 +1,12 @@
-package com.app.man;
+package com.app.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.app.adapter.WomanAdapter;
+import com.app.man.R;
 import com.app.model.WomanItemModel;
 
 import android.os.Bundle;
@@ -16,6 +19,7 @@ public class Woman extends Activity {
 
 	private ListView womanList;
 	private WomanAdapter womanAdapter;
+	private List<Map<String, WomanItemModel>> models;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +35,31 @@ public class Woman extends Activity {
 	}
 
 	private void initWomanList() {
-		List<WomanItemModel> models = new ArrayList<WomanItemModel>();
-
-		for (int i = 0; i < 21; i++) {
+		models = new ArrayList<Map<String,WomanItemModel>>();
+		
+		Map<String, WomanItemModel> map = null;
+		int len = 15;
+		
+		for (int i = 0; i < len; i=i+2) {
+			map = new HashMap<String, WomanItemModel>();
+			
 			WomanItemModel model = new WomanItemModel();
 			model.setImg(R.drawable.default_img);
 			model.setName("装女郎" + i);
 			model.setVote(100 * i);
-			models.add(model);
+			model.setRank(i + 1);
+			map.put("left", model);
+			
+			if(i + 1 < len){
+				WomanItemModel model2 = new WomanItemModel();
+				model2.setImg(R.drawable.default_img);
+				model2.setName("装女郎" + (i+1));
+				model2.setVote(100 * (i+1));
+				model2.setRank(i + 2);
+				map.put("right", model2);
+			}
+			
+			models.add(map);
 		}
 
 		womanAdapter.setDatas(models);

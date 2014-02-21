@@ -4,9 +4,15 @@ public class WomanItemModel {
 
 	private int img;//装女郎图片
 	private String name; //装女郎名字
-	private int vote;//装女郎被投票数
+	private int vote = 0;//装女郎被投票数
+	private int rank = 0; //排名
 	
-	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	public int getImg() {
 		return img;
 	}
