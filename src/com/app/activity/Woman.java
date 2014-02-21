@@ -45,7 +45,7 @@ public class Woman extends Activity {
 			
 			WomanItemModel model = new WomanItemModel();
 			model.setImg(R.drawable.default_img);
-			model.setName("װŮ��" + i);
+			model.setName("装女郎" + i);
 			model.setVote(100 * i);
 			model.setRank(i + 1);
 			map.put("left", model);
@@ -53,7 +53,7 @@ public class Woman extends Activity {
 			if(i + 1 < len){
 				WomanItemModel model2 = new WomanItemModel();
 				model2.setImg(R.drawable.default_img);
-				model2.setName("װŮ��" + (i+1));
+				model2.setName("装女郎" + (i+1));
 				model2.setVote(100 * (i+1));
 				model2.setRank(i + 2);
 				map.put("right", model2);

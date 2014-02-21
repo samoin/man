@@ -13,5 +13,7 @@
     <string name="title_choice">评选</string>
     <string name="title_signup">报名</string>
     <string name="title_activity_login">Login</string>
+    
+    <string name="base_response_error">网络请求返回错误</string>
 
 </resources>

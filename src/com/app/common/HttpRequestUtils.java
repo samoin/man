@@ -7,12 +7,19 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.app.man.R;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.StrictMode;
 
 public class HttpRequestUtils {
 	public static String BASE_HTTP_CONTEXT = "http://192.168.1.101:8080/manWear/";
-	
+
 	public static String BUNDLE_KEY_ISPOST = "isPost";
 	public static String BUNDLE_KEY_HTTPURL = "httpUrl";
 	public static String BUNDLE_KEY_PARAMS = "params";
@@ -26,6 +33,26 @@ public class HttpRequestUtils {
 		return getResFromHttpUrl(isPost, httpUrl, params);
 	}
 
+	public static String getNetworkWrongStr() {
+		// JSONObject jsonObject = new JSONObject();
+		// try {
+		// jsonObject.put("success", false);
+		// jsonObject.put("errorCode", -1001);
+		// jsonObject.put("errorMessage", R.string.base_response_error);
+		// } catch (JSONException e) {
+		// e.printStackTrace();
+		// }
+		// return jsonObject.toString();
+		return "{" + "\"success\": false" + ",\"errorCode\": \"-1001\""
+				+ ",\"errorMessage\": \"" + R.string.base_response_error + "\""
+				+ "}";
+
+	}
+
+	public static void main(String[] args) {
+		System.out.println(getNetworkWrongStr());
+	}
+
 	/**
 	 * 根据参数，获取对应的http返回的内容
 	 * 
@@ -34,6 +61,7 @@ public class HttpRequestUtils {
 	 * @param params
 	 * @return
 	 */
+	@SuppressLint("NewApi")
 	public static String getResFromHttpUrl(Boolean isPost, String httpUrl,
 			String params) {
 		String resultStr;
@@ -47,7 +75,12 @@ public class HttpRequestUtils {
 		if (params == null) {
 			params = "";
 		}
-		System.out.println(httpUrl);
+		// 目前测试，在2.2以上的模拟器里，不加下面这段，会报错，主要意思就是在主线程中不能去执行这种可能引起堵塞的http的请求
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
 		if (isPost) {
 			resultStr = HttpRequestUtils.sendPost(httpUrl, params);
 		} else {
@@ -69,8 +102,7 @@ public class HttpRequestUtils {
 		StringBuilder result = new StringBuilder();
 		BufferedReader in = null;
 		try {
-			String urlNameString = url;
-			URL realUrl = new URL(urlNameString);
+			URL realUrl = new URL(url);
 			// 打开和URL之间的连接
 			URLConnection connection = realUrl.openConnection();
 			// 设置通用的请求属性
@@ -94,8 +126,8 @@ public class HttpRequestUtils {
 				result.append(line);
 			}
 		} catch (Exception e) {
-			System.out.println("发送GET请求出现异常！" + e);
 			e.printStackTrace();
+			return getNetworkWrongStr();
 		}
 		// 使用finally块来关闭输入流
 		finally {
@@ -107,7 +139,6 @@ public class HttpRequestUtils {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(result.toString());
 		return result.toString();
 	}
 
