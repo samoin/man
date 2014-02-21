@@ -8,6 +8,7 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
+    <!-- activity-groups -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -26,8 +27,16 @@
         </activity>
         <activity
             android:name="com.app.activity.Woman"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.app.activity.Login"
+            android:label="@string/title_activity_login" >
         </activity>
     </application>
+    
+    <!-- permission-groups -->
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
 
 </manifest>
